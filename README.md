@@ -1,5 +1,5 @@
 # imooc movie.
-node+express+jade+mongodb 建站攻略（一期）练习 http://www.imooc.com/learn/75
+node+express+jade+mongodb 建站攻略（一期）练习
 
 ##Tech stack
 
