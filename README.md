@@ -34,7 +34,8 @@ Type node app.js
 
 ##Release
 
-bower init and npm init.
+* bower init 
+* npm init.
 
 ##Todo
 
