@@ -29,6 +29,8 @@ Type node app.js
 | 3  | detail |  http://localhost:3000/movie/:id  |
 | 4  | lis    |  http://localhost:3000/admin/list  |
 
+
+
 ##Release
 
 bower init and npm init.
