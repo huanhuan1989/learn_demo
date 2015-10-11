@@ -3,6 +3,7 @@ node+express+jade+mongodb 建站攻略（一期）练习 http://www.imooc.com/le
 
 ##Tech stack
 
+```
 * nodejs
 * express
 * jade
@@ -13,6 +14,7 @@ node+express+jade+mongodb 建站攻略（一期）练习 http://www.imooc.com/le
 * jquery
 * bootstrap
 * sublime text 3
+```
 
 ##Install
 
