@@ -19,20 +19,20 @@ node+express+jade+mongodb 建站攻略（一期）练习 http://www.imooc.com/le
 ##Install
 
 ```
-* bower install #front-end
-* npm install #backend
+* bower install
+* npm install
 ```
 
 ##Run
 
 Type ```node app.js```
 
-| #           |    module | url  |
+| #           | module | url  |
 | :---------- | --------:| :--: |
-| 1  | home   |  http://localhost:3000   |
-| 2  | add    |  http://localhost:3000/admin/movie  |
-| 3  | detail |  http://localhost:3000/movie/:id  |
-| 4  | lis    |  http://localhost:3000/admin/list  |
+| 1  | home   | http://localhost:3000   |
+| 2  | add    | http://localhost:3000/admin/movie  |
+| 3  | detail | http://localhost:3000/movie/:id  |
+| 4  | lis    | http://localhost:3000/admin/list  |
 
 
 
