@@ -37,8 +37,3 @@ Type node app.js
 * bower init 
 * npm init.
 
-##Todo
-
-Fix warning
-
-body-parser deprecated bodyParser: use individual json/urlencoded middlewares app.js:14:9
