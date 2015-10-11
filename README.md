@@ -19,8 +19,8 @@ node+express+jade+mongodb 建站攻略（一期）练习 http://www.imooc.com/le
 ##Install
 
 ```
+* npm install imooc
 * bower install
-* npm install
 ```
 
 ##Run
