@@ -18,12 +18,14 @@ node+express+jade+mongodb 建站攻略（一期）练习 http://www.imooc.com/le
 
 ##Install
 
+```
 * bower install #front-end
 * npm install #backend
+```
 
 ##Run
 
-Type node app.js
+Type ```node app.js```
 
 | #           |    module | url  |
 | :---------- | --------:| :--: |
@@ -36,6 +38,7 @@ Type node app.js
 
 ##Release
 
+```
 * bower init 
 * npm init.
-
+```
