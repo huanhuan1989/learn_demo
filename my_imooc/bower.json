@@ -1,0 +1,27 @@
+{
+  "name": "i mooc",
+  "version": "0.0.1",
+  "authors": [
+    "huanhuan"
+  ],
+  "description": "imooc movie",
+  "main": "app.js",
+  "moduleType": [],
+  "keywords": [
+    "imooc"
+  ],
+  "license": "utf-8",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
