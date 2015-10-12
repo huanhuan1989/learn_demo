@@ -5,9 +5,9 @@
 ## node
 
 ```
-	* imooc movie.  (node+express+jade+mongodb 建站攻略（一期）练习)
+	* node_my_imooc  (node+express+jade+mongodb 建站攻略（一期）练习)
 	* CodeMirror demo
-	* thinkJS demo
+	* node_thinkJS_demo
 	* 待续......
 ```
 
