@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <ul>
+        <%list.forEach(function(item){%>
+        <li>
+            <h3><a href="/post/detail?id=<%=item.id%>"><%=item.title%></a></h3>
+            <p><%=item.content%>   -- <%=item.update_time%></p>
+        </li>
+        <%})%>
+    </ul>
+</body>
+</html>

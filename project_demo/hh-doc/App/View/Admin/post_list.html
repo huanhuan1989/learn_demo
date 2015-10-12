@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p><a href="/admin/post/add">添加</a></p>
+    <ul>
+        <%list.forEach(function(item){%>
+        <li>
+            <h3><a href="/post/detail?id=<%=item.id%>"><%=item.title%></a>　<a href="/admin/post/delete?id=<%=item.id%>">删除</a></h3>
+        </li>
+        <%})%>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <style>
+        /**
+         * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+         * http://cssreset.com
+         */
+        * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html, body, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed,
+        figure, figcaption, footer, header, hgroup,
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+        /* HTML5 display-role reset for older browsers */
+        article, aside, details, figcaption, figure,
+        footer, header, hgroup, menu, nav, section, main, aside {
+            display: block;
+        }
+        body {
+            line-height: 22px;
+            overflow: hidden;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        .content-wrap{
+            position: relative;
+            min-height: 600px;
+            min-height: 100vh;
+            padding-top: 48px;
+            padding-bottom: 20px;
+            overflow: hidden;
+            background: #fff;
+        }
+        .editor{
+            position: absolute;
+            left: 0;
+            right: 50%;
+            top: 0;
+            height: 100%;
+            border-right: 1px solid #444;
+        }
+        #code{
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            resize: none;
+        }
+        #preview{
+            position: absolute;
+            left: 50%;
+            right: 0;
+            top: 0;
+            overflow: auto;
+            height: 100%;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrap">
+        <div class="editor">
+            <textarea id="code" name="code"></textarea>
+        </div>
+        <div id="preview"></div>
+    </div>
+
+    <script type="text/template" id="doc_template">
+        <h1>{{!it.name}}</h1>
+        {{=it.description}}
+        {{~it.metadata :meta}}
+        <p class='meta'><span class='meta-name'>{{!meta.name}}</span>:  <span class='meta-value'>{{!meta.value}}</span></p>
+        {{~}}
+        {{~it.resources :value}}
+        <h2 class="action"><span class="method {{!value.method}}">{{!value.method}}</span><span class="uri">{{!value.uriTemplate}}</span></h2>
+        {{!value.description}}
+        {{? value.parameters && value.parameters.length}}
+        <h4>参数列表：</h4>
+        <table class="params">
+            <thead>
+            <th>名称</th>
+            <th>类型</th>
+            <th>必填</th>
+            <th>说明</th>
+            </thead>
+            {{for (var p in value.parameters){ }}
+            <tr>
+                <td class="param-name">{{!value.parameters[p].name}}</td>
+                <td class="param-type">{{!value.parameters[p].type}}</td>
+                <td class="param-optional">{{? value.parameters[p].required}}yes{{??}}no{{?}}</td>
+                <td class="param-desc">{{!value.parameters[p].description}}</td>
+            </tr>
+            {{ } }}
+        </table>
+        {{?}}
+        {{~value.examples :e}}
+            {{!e.description}}
+            {{? e.requests&&e.requests.length}}
+            <h4>请求参数示例：</h4>
+            {{?}}
+            {{~e.requests :r}}
+                {{!r.description}}
+                <pre class="sample"><code class="lang-javascript">{{!r.body}}</code></pre>
+                {{~}}
+                {{? e.responses}}
+                <h4>返回值示例：</h4>
+                {{?}}
+                {{~e.responses :r:ri}}
+                    {{!r.description}}
+                    <pre class="sample" id="response_{{!value.key}}_{{=ri}}"><code class="lang-javascript">{{!r.body}}</code></pre>
+                {{~}}
+            {{~}}
+        {{~}}
+    </script>
+    <script type='text/template' id='example-apidoc'>
+        # GET /path/to/api
+
+        描述该API的功能
+
+        + Parameters
+        + pn (Integer) ... 页码
+        + ps (Integer, optional) ... 页面大小
+
+        + Response
+
+        {
+            "errno" : 0,
+            "errmsg" : null,
+            "total" : 1,
+            "list" : [ {
+                "vid" : 237,
+                "name" : "天文台"
+            } ]
+        }
+    </script>
+
+    <script src="http://mall.vip.360.cn/static/module/jquery/v1.8.3/jquery-1.8.3.js"></script>
+    <script src="http://s8.qhimg.com/!7591fd48/doT.js"></script>
+    <script src="lib/codemirror.js"></script>
+    <script src="addon/edit/continuelist.js"></script>
+    <script src="mode/xml/xml.js"></script>
+    <script src="mode/markdown/markdown.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            lineNumbers:true,           //是否显示行号
+            mode:'markdown',             //markdown模式
+            lineWrapping: true,
+            indentUnit: 4,
+            tabSize: 4
+        });
+        editor.setOption("extraKeys", {
+            Tab: function(cm) {
+                editor.execCommand("defaultTab");
+            }
+        });
+
+        editor.on('change', function(){
+            var sourceText = editor.getValue().trim().replace(/\t/g,'    ');
+            //console.log(sourceText);
+            var template = $('#doc_template').html(),
+                tmpl = doT.template(template),
+                html = '';
+
+
+            /*
+            * 1、使用POST提交代码，提交时data中的数据格式为。ID：每个文档的ID，sourceText: editor中的数据
+            *   data:{id: "188", sourceText: "HOST: http://www.example.com↵↵#测试数据"}
+            * 2、提交返回数据中需要以下判断
+            *   1)errno == 0      成功
+            *   2)errno == 2000   刷新
+            *   3)errno == 2001   格式不正确，请重新编辑
+            * 3、errno == 0 成功提交后，把editor中的数据通过DOT模板转化，显示到preview里面。
+            * 4、开一个定时器来检测JSON格式是否正确。  (validator.js)
+            * */
+
+            //保存数据库，并且返回数据回来，展现模板。
+            //html = tmpl(result.data);
+            //$('#preview').html(html);
+            $('#preview').html(sourceText);
+
+        });
+    </script>
+</body>
+</html>
